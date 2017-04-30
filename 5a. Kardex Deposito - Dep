@@ -1,0 +1,11 @@
+_______________________________________
+m_cli_kardex_deposito
+_______________________________________
+
+insert into m_cli_kardex_deposito (m_con_centro_contableid, m_cli_depositoid, s_tipo_documentoid, s_tipo_movimientoid, s_vigenciavigencia, s_periodoperiodo, m_cli_detalle_comprobante_depositoid, fechatransaccion, saldoanterior, cargo, rendimientos, cargoencanje, abono, saldoencanje, disponible, username, creacion, estado)  
+select 1, m_cli_depositoid, m_cli_comprobante_deposito.s_tipo_documentoid,m_cli_comprobante_deposito.s_tipo_movimientoid, m_cli_comprobante_deposito.s_vigenciavigencia, m_cli_comprobante_deposito.s_periodoperiodo, m_cli_detalle_comprobante_deposito.id, m_cli_comprobante_deposito.fecha,
+0,
+case when (m_cli_comprobante_deposito.s_tipo_movimientoid = 251 and m_cli_comprobante_deposito.s_tipo_movimientoid = 252) then m_cli_detalle_comprobante_deposito.valor else 0 end,0,0,
+case when (m_cli_comprobante_deposito.s_tipo_movimientoid = 250) then m_cli_detalle_comprobante_deposito.valor else 0 end,0,0, 'admin@siep.com', '2017-04-29', 'Autorizado'
+from m_cli_detalle_comprobante_deposito
+inner join m_cli_comprobante_deposito on (m_cli_detalle_comprobante_deposito.m_cli_comprobante_depositoid = m_cli_comprobante_deposito.id)
