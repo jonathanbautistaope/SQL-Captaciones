@@ -10,10 +10,11 @@ DBA.movimientos.cta_mov ||'" and fecha = "'|| DBA.movimientos.fec_mov ||'" and d
 '(select case when m_cli_comprobante_deposito.s_tipo_movimientoid = 252 then  m_cli_deposito.id else NULL end from m_cli_deposito inner join m_cli_comprobante_deposito on (trim(substring(m_cli_comprobante_deposito.descripcion from position ("Cuenta:" in m_cli_comprobante_deposito.descripcion)+7 for char_length(m_cli_comprobante_deposito.descripcion))) = m_cli_deposito.numerodeposito and m_cli_deposito.numerodeposito =  "'|| 
 DBA.movimientos.cta_mov ||'" and fecha = "'|| DBA.movimientos.fec_mov||'" and descripcion like "%'|| DBA.movimientos.num_mov ||'%"))'||','||
 case when (DBA.cheques.nud_che = DBA.movimientos.num_mov and DBA.movimientos.cta_mov = DBA.cheques.cta_che) then  
-'(select case when m_cli_banco.codigobanco = "'|| DBA.cheques.cod_ban || '" then m_cli_banco.id else 0 end )' else '0' end||',"'||
+'(select case when m_cli_banco.codigobanco = "'|| DBA.cheques.cod_ban || '" then m_cli_banco.id else 0 end from m_cli_banco
+where m_cli_banco.codigobanco = "'|| DBA.cheques.cod_ban ||)' else '0' end||',"'||
 case when (DBA.cheques.nud_che = DBA.movimientos.num_mov and DBA.movimientos.cta_mov = DBA.cheques.cta_che) then DBA.cheques.nct_che else 'NULL' end||'","'||
 DBA.movimientos.doc_mov || ' ' || DBA.movimientos.num_mov || ' ' || DBA.movimientos.det_mov || ' - Cuenta:  ' || DBA.movimientos.cta_mov || '",'||
-DBA.movimientos.val_mov ||', "2017-04-22" '|| ',' || 
+DBA.movimientos.val_mov ||', "2017-05-05" '|| ',' || 
 case when (DBA.cheques.nud_che = DBA.movimientos.num_mov and DBA.movimientos.cta_mov = DBA.cheques.cta_che) then '2' else '1' end ||');'
 from movimientos
 left join cheques on (DBA.cheques.nud_che = DBA.movimientos.num_mov and DBA.movimientos.cta_mov = DBA.cheques.cta_che)
