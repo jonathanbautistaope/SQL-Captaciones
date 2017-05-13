@@ -8,7 +8,7 @@ select distinct 'insert into m_cli_comprobante_deposito (m_con_centro_contableid
   else 250 end ||',"2017", ' ||
 case when DBA.movimientos.fec_mov < convert (datetime, '31/01/2017',103) then 1 else  month(DBA.movimientos.fec_mov) end || 
 ',(SELECT to_char(cast(coalesce(max(consecutivo),"0") as int)+1,"FM09999999") from m_cli_comprobante_deposito),"' ||
-DBA.movimientos.fec_mov || '", "Autorizado" ,"'|| DBA.movimientos.doc_mov || ' ' || DBA.movimientos.num_mov || ' ' || DBA.movimientos.det_mov || ' - Cuenta:' || DBA.movimientos.cta_mov || '", "2017-04-22");',DBA.movimientos.fec_mov
+DBA.movimientos.fec_mov || '", "Autorizado" ,"'|| DBA.movimientos.doc_mov || ' ' || DBA.movimientos.num_mov || ' ' || DBA.movimientos.sec_mov || ' ' || DBA.movimientos.det_mov || ' - Cuenta:' || DBA.movimientos.cta_mov || '", "2017-04-22");',DBA.movimientos.fec_mov
 from movimientos
 where (movimientos.lin_mov in (01, 02, 04, 08)
 or  (movimientos.lin_mov in (82, 84, 88) and movimientos.tip_mov = 'R'))
