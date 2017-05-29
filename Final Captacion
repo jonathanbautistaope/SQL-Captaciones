@@ -1,0 +1,7 @@
+select * from movimientos
+
+select * from cheques
+
+quitar los ; 
+reemplazar ,, por ,null,
+reemplazar ,); por ,null);
